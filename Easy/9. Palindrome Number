@@ -1,0 +1,13 @@
+class Solution {
+public:
+    bool isPalindrome(int x) {
+        ostringstream str1;
+        str1 << x;
+        string s = str1.str();
+        int i=0, j=s.size()-1;
+        while(i<j){
+            if(s[i++] != s[j--]) return false;
+        }
+        return true;
+    }
+};
