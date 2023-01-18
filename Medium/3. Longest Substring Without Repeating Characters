@@ -1,0 +1,30 @@
+/*
+Intuition:
+  Since there should be no repeating character in the string with the largest length, we can create a new array / vector of char.
+  Now, we traverse through the input string and push every distinct character to the newly created array. If we find any repeating character, we remove the array
+  from the beginning to the position where we found the repeating character at. This lets us keep the non repeating characters that are present at the new array 
+  not deleted to keep count of them. 
+*/
+class Solution {
+public:
+    int lengthOfLongestSubstring(string s) {
+        if(s.size() == 0) return 0;
+        vector<char> vect;
+        int count = 0;
+
+        for(int i=0; i<s.size(); i++){
+            auto it = find(vect.begin(), vect.end(), s[i]); // If the character is found, the function returns an iterator to the position, else it returns the end
+            if(it == vect.end()){
+                vect.push_back(s[i]);
+                count = max((int)vect.size(), count); // For every insertion into the new array we update the count.
+            }
+            else{
+                vect.erase(vect.begin(), next(it, 1));
+                vect.push_back(s[i]);
+                count = max((int)vect.size(), count);
+            }
+        }
+
+        return count;
+    }
+};
