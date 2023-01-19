@@ -1,0 +1,68 @@
+class Solution {
+public:
+    double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {
+        priority_queue<int> pq;
+        int i=0;
+        bool equal = false;
+        if (nums1.size() == nums2.size()) equal = true;
+        bool size = nums1.size() > nums2.size() ? true : false;
+        if(equal){
+            while(i < nums1.size()){
+                pq.push(nums1[i]);
+                pq.push(nums2[i]);
+                i++;
+            }
+        }
+        else{
+            if(size){
+                while(i < nums1.size()){
+                    if(i < nums2.size()){
+                        pq.push(nums1[i]);
+                        pq.push(nums2[i]);
+                    }
+                    else{
+                        pq.push(nums1[i]);
+                    }
+                    i++;
+                }
+            }
+            else{
+                while(i < nums2.size()){
+                    if(i < nums1.size()){
+                        pq.push(nums1[i]);
+                        pq.push(nums2[i]);
+                    }
+                    else{
+                        pq.push(nums2[i]);
+                    }
+                    i++;
+                }
+            }
+        }
+        int len = nums1.size() + nums2.size();
+        double out = 0;
+        int ref = len-1;
+        bool even = len % 2 == 0 ? true : false;
+        while(!pq.empty()){
+            if(even){
+                if(ref == len/2) out += pq.top();
+                else if(ref == (len/2) - 1){
+                    out += pq.top();
+                    break;
+                }
+                ref--;
+                pq.pop();
+            }
+            else{
+                if(ref == len/2){
+                    out += pq.top();
+                    break;
+                }
+                ref--;
+                pq.pop();
+            }
+        }
+
+        return even ? out/2 : out;
+    }
+};
