@@ -1,0 +1,43 @@
+class Solution {
+public:
+    string convert(string s, int numRows) {
+        if (numRows == 1) return s;
+        int first_change = (numRows-1)*2, change = (numRows-1)*2, alt_change = (numRows-1)*2;
+        string out;
+        int i = 0, iter = 0,index = 0;
+        cout<<s.size()<<endl;
+        bool alternate = false;
+
+        while(iter < s.size()){
+            if(i < s.size()){
+                out.push_back(s[i]);
+                if(!alternate){
+                    i += change;
+                    alternate = true;
+                }
+                else{
+                    i += alt_change;
+                    alternate = false;
+                }
+            }
+            else{
+                if(change - 2 == 0){
+                    change = (numRows - 1)*2;
+                    alt_change = change;
+                    alternate  = false;
+                }
+                else{
+                    change -= 2;
+                    alt_change = first_change - change;
+                    alternate  = false;
+                }
+                index++;
+                i = index; 
+                iter--;
+            }
+            iter++;
+        }        
+
+        return out;
+    }
+};
