@@ -1,0 +1,31 @@
+class Solution {
+public:
+    int romanToInt(string s) {
+        map<char, int> values;
+        values.insert(pair<char, int>('I', 1));
+        values.insert(pair<char, int>('V', 5));
+        values.insert(pair<char, int>('X', 10));
+        values.insert(pair<char, int>('L', 50));
+        values.insert(pair<char, int>('C', 100));
+        values.insert(pair<char, int>('D', 500));
+        values.insert(pair<char, int>('M', 1000));
+        int sum = 0, sum_prev;
+        char prev='M';
+        for(int i=0; i<s.length(); i++){
+            try{
+                if(values.at(prev) < values.at(s[i])){
+                sum = sum_prev + values.at(s[i]) - values.at(prev);
+                prev = s[i];
+                continue;
+            }
+            sum_prev = sum;
+            sum += values.at(s[i]);
+            prev = s[i];
+            }
+            catch(...){
+                std::cout<<"Error";
+            }
+        }
+        return sum;
+    }
+};
