@@ -1,3 +1,10 @@
+/* Intuition:
+        Since we want the container with the most capacity, we can intuitively figure out that we need to get the 2 widest possible axes with the largest height.
+        We can solve thsi using a 2 pointer solution by pointin one pointer to the start and the other to the end. We als oneed to keep in mind that when choosing 2
+        axes with different heights, we need to choose the one with the lower height for the area calculation since with the extra heigh the water will overflow.
+        So for every iteration where the first pointer is less than the last pointer, we check for the minimum of both the pointers and find the area. Now, we
+        increment the first pointer and decrement the second pointer.
+*/
 class Solution {
 public:
     int maxArea(vector<int>& height) {
