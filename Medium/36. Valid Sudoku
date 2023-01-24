@@ -1,0 +1,52 @@
+class Solution {
+public:
+    bool checkRow(vector<vector<char>>& board, int i, int j, int target){
+        for(int k=0; k<board.size(); k++){
+            cout<<"Check Row"<<endl;
+            if(k == j) continue;
+            if(board[i][k] == target) return false;
+        }
+        return true;
+    }
+    bool checkColumn(vector<vector<char>>& board, int i, int j, int target){
+        for(int k=0; k<board.size(); k++){
+            cout<<"Check Column"<<endl;
+            if(k == i) continue;
+            if(board[k][j] == target) return false;
+        }
+        return true;
+    }
+    bool checkBox(vector<vector<char>>& board, int i, int j, int target){
+        int start_i, start_j;
+        if(i > 5) start_i = 6;
+        else if(i > 2) start_i = 3;
+        else start_i = 0;
+        if(j > 5) start_j = 6;
+        else if(j > 2) start_j = 3;
+        else start_j = 0;
+        int limit_k = start_i+3, limit_l = start_j+3;
+        for(int k=start_i; k<limit_k; k++){
+            for(int l=start_j; l<limit_l; l++){
+                cout<<"Check Box"<<endl;
+                if(k == i && l == j) continue;
+                if(board[k][l] == target) return false;
+            }
+        }
+        return true;
+    }
+    bool isValidSudoku(vector<vector<char>>& board) {
+        for(int i=0; i<9; i++){
+            for(int j=0; j<9; j++){
+                if(board[i][j] == '.'){
+                    continue;
+                }
+                else{
+                    if(!checkRow(board, i, j, board[i][j])) return false;
+                    if(!checkColumn(board, i, j, board[i][j])) return false;
+                    if(!checkBox(board, i, j, board[i][j])) return false;
+                }
+            }
+        }
+        return true;
+    }
+};
