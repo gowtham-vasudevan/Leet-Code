@@ -1,0 +1,25 @@
+class Solution {
+public:
+    int jump(vector<int>& nums) {
+        if(!nums.size()) return 0;
+        if(nums.size() == 1) return 0;
+        vector<int> max_distance;
+        int sum = 0;
+        for(int i=0; i<nums.size(); i++) max_distance.push_back(i+nums[i] > nums.size() - 1 ? nums.size() - 1 : i+nums[i]);
+        
+        int it = find(max_distance.begin(), max_distance.end(), nums.size()-1) - max_distance.begin();
+        sum++;
+        while(it){
+            for(int i=0; i<it; i++){
+                if(max_distance[i] >= it){
+                    sum++;
+                    it = i;
+                    break;
+                }
+            }
+        }
+
+        return sum;
+
+    }
+};
