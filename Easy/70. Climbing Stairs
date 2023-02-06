@@ -1,0 +1,15 @@
+class Solution {
+public:
+    int climbStairs(int n) {
+        if(n == 1) return 1;
+        if(n == 2) return 2;
+        unsigned int i = 1, j = 2, count = 2;
+        while(count < n){
+            int tmp = i;
+            i = j;
+            j += tmp;
+            count++;
+        }
+        return j;
+    }
+};
